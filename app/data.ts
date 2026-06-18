@@ -46,6 +46,13 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/the-shaky-hot-air-balloon-of-software',
     uid: 'the-shaky-hot-air-balloon-of-software',
   },
+  {
+    title: 'AI 时代，为什么好的前端设计依然千金不换',
+    description:
+      '用过各种 UI 库和 AI 设计工具后，我发现真正好的 UI/UX 设计是一种"直觉"，需要大量工程经验的积累。AI 现在还做不到这一点，而前端设计在当下比以往任何时候都更重要。',
+    link: '/blog/ui-ux-design-in-the-ai-era',
+    uid: 'ui-ux-design-in-the-ai-era',
+  },
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [
