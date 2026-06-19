@@ -1,10 +1,12 @@
 import type { MDXComponents } from 'mdx/types'
 import { ComponentPropsWithoutRef } from 'react'
 import { highlight } from 'sugar-high'
+import { PostMeta } from '@/components/post-meta'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
+    PostMeta,
     Cover: ({
       src,
       alt,
