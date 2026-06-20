@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 interface BackButtonProps {
@@ -19,12 +18,13 @@ export function BackButton({
   onClick,
   className,
 }: BackButtonProps) {
-  const router = useRouter()
-
   const handleClick = () => {
     if (onClick) return onClick()
-    if (href) return router.push(href)
-    router.back()
+    if (href) {
+      window.location.href = href
+      return
+    }
+    window.history.back()
   }
 
   return (
