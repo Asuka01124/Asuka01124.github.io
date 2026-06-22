@@ -50,6 +50,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/ui-ux-design-in-the-ai-era',
     uid: 'ui-ux-design-in-the-ai-era',
     date: '2026-06-18',
+    cover: '/blog/ui-ux-design-cover.png',
   },
   {
     title: '操作系统学习指北：从 CS162 劝退到 NJU 重燃',

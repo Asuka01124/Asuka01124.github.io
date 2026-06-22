@@ -247,7 +247,7 @@ export default function Personal() {
             return (
               <div
                 key={f.title}
-                className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:shadow-md transition-shadow bg-white dark:bg-zinc-900"
+                className="bg-white dark:bg-zinc-900 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out"
               >
                 <div
                   className={`w-10 h-10 rounded-lg ${colors.bg} ${colors.text} flex items-center justify-center mb-4`}
@@ -296,10 +296,16 @@ export default function Personal() {
               key={post.uid}
               className="flex gap-4 py-5 group items-center"
             >
-              {/* 缩略图占位 */}
-              <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
-                <Edit3 size={20} className="text-zinc-300 dark:text-zinc-500" />
-              </div>
+              {/* 缩略图 */}
+              {post.cover ? (
+                <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                  <img src={post.cover} alt={post.title} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                  <Edit3 size={20} className="text-zinc-300 dark:text-zinc-500" />
+                </div>
+              )}
 
               {/* 文字区 */}
               <div className="flex-1 min-w-0">
