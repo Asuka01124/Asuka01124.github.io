@@ -67,6 +67,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/the-shaky-hot-air-balloon-of-software',
     uid: 'the-shaky-hot-air-balloon-of-software',
     date: '2026-06-14',
+    cover: '/blog/the-shaky-hot-air-balloon-of-software.png',
   },
 ]
 
