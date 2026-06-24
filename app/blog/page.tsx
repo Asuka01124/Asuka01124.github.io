@@ -24,9 +24,15 @@ export default function BlogPage() {
             key={post.uid}
             className="flex gap-4 py-5 group items-center"
           >
-            <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
-              <Edit3 size={20} className="text-zinc-300 dark:text-zinc-500" />
-            </div>
+            {post.cover ? (
+              <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                <img src={post.cover} alt={post.title} className="w-full h-full object-cover" />
+              </div>
+            ) : (
+              <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                <Edit3 size={20} className="text-zinc-300 dark:text-zinc-500" />
+              </div>
+            )}
 
             <div className="flex-1 min-w-0">
               <h3 className="font-medium text-black dark:text-white truncate">

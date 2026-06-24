@@ -59,6 +59,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/os-learning-from-cs162-to-nju',
     uid: 'os-learning-from-cs162-to-nju',
     date: '2026-06-15',
+    cover: '/blog/os-learning-from-cs162-to-nju.png',
   },
   {
     title: '摇摇欲坠的热气球：从 Agent 开发看软件工程的复杂性',
