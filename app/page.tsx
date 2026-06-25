@@ -290,7 +290,7 @@ export default function Personal() {
         </div>
 
         <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
-          {BLOG_POSTS.map((post) => (
+          {BLOG_POSTS.slice(0, 4).map((post) => (
             <Link
               href={post.link}
               key={post.uid}
