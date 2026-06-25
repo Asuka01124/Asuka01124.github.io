@@ -44,6 +44,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '多 Agent 协作，也许只是一场热闹的菜市场',
+    description:
+      'Agent-Graph、Swarm、树形协作——多 Agent 架构看起来很酷，但实际效果真的比单个 Agent 更好吗？一个学生的反思与吐槽。',
+    link: '/blog/rethinking-multi-agent',
+    uid: 'rethinking-multi-agent',
+    date: '2026-06-25',
+  },
+  {
     title: 'AI 时代，为什么好的前端设计依然千金不换',
     description:
       '用过各种 UI 库和 AI 设计工具后，我发现真正好的 UI/UX 设计是一种"直觉"，需要大量工程经验的积累。AI 现在还做不到这一点，而前端设计在当下比以往任何时候都更重要。',
