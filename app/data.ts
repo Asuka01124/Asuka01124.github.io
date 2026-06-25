@@ -50,6 +50,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/rethinking-multi-agent',
     uid: 'rethinking-multi-agent',
     date: '2026-06-25',
+    cover: '/blog/rethinking-multi-agent.png',
   },
   {
     title: 'AI 时代，为什么好的前端设计依然千金不换',
