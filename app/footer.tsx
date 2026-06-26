@@ -1,10 +1,9 @@
 'use client'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import { TextLoop } from '@/components/ui/text-loop'
-import { MonitorIcon, MoonIcon, SunIcon, Github, Tv, Mail } from 'lucide-react'
+import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { SOCIAL_LINKS } from './data'
 
 const THEMES_OPTIONS = [
   {
@@ -69,19 +68,6 @@ function ThemeSwitch() {
   )
 }
 
-const SOCIAL_ICON_MAP: Record<string, React.ElementType> = {
-  Github,
-  Bilibili: Tv,
-  Email: Mail,
-}
-
-function getSocialIcon(label: string) {
-  for (const [key, Icon] of Object.entries(SOCIAL_ICON_MAP)) {
-    if (label.toLowerCase().includes(key.toLowerCase())) return Icon
-  }
-  return null
-}
-
 export function Footer() {
   return (
     <footer className="mt-20 border-t border-zinc-100 dark:border-zinc-800 px-0 py-6">
@@ -95,23 +81,6 @@ export function Footer() {
           </a>
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 text-zinc-400">
-            {SOCIAL_LINKS.map((link) => {
-              const Icon = getSocialIcon(link.label)
-              return Icon ? (
-                <a
-                  key={link.label}
-                  href={link.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-black dark:hover:text-white transition-colors"
-                  aria-label={link.label}
-                >
-                  <Icon size={18} />
-                </a>
-              ) : null
-            })}
-          </div>
           <ThemeSwitch />
         </div>
       </div>
