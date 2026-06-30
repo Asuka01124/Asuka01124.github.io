@@ -6,7 +6,7 @@
 
 set -e
 
-TARGET_REPO="https://github.com/Asuka01124/Asuka01124.github.io.git"
+TARGET_REPO="git@github.com:Asuka01124/Asuka01124.github.io.git"
 TARGET_BRANCH="gh-pages"
 BUILD_DIR="out"
 TEMP_DIR="/tmp/nim-gh-pages-deploy"
@@ -21,6 +21,7 @@ if git clone --depth 1 --branch "$TARGET_BRANCH" "$TARGET_REPO" "$TEMP_DIR" 2>/d
   echo "   已克隆现有 $TARGET_BRANCH 分支"
 else
   echo "   $TARGET_BRANCH 分支不存在，初始化新仓库..."
+  mkdir -p "$TEMP_DIR"
   cd "$TEMP_DIR"
   git init
   git checkout -b "$TARGET_BRANCH"
