@@ -61,6 +61,8 @@ export function Magnetic({
     return () => {
       document.removeEventListener('mousemove', calculateDistance)
     }
+    // x, y 是 motion 稳定引用，不需要加入 deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, isHovered, intensity, range])
 
   useEffect(() => {

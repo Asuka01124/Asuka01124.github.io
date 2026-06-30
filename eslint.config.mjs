@@ -13,9 +13,13 @@ const eslintConfig = [
   ...compat.extends(
     "next/core-web-vitals",
     "next/typescript",
-    "plugin:prettier/recommended",
   ),
-  "plugin:mdx/recommended",
+  {
+    rules: {
+      // 静态导出项目，不需要 next/image 优化
+      "@next/next/no-img-element": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
