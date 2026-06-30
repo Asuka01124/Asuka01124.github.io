@@ -2,7 +2,7 @@ type Project = {
   name: string
   description: string
   link: string
-  video: string
+  video?: string
   id: string
 }
 
@@ -38,7 +38,14 @@ type SocialLink = {
   link: string
 }
 
-export const PROJECTS: Project[] = []
+export const PROJECTS: Project[] = [
+  {
+    name: 'AsukaCode',
+    description: '终端 AI 编码助手，基于 Bun + TypeScript + OpenTUI 构建，在命令行中提供智能代码辅助。',
+    link: 'https://github.com/Asuka01124/asukacode',
+    id: 'asukacode',
+  },
+]
 
 export const WORK_EXPERIENCE: WorkExperience[] = []
 

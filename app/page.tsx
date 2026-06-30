@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
-import { XIcon, FolderOpen, Briefcase, Edit3, Github, Tv, Mail, ExternalLink, ArrowRight } from 'lucide-react'
+import { XIcon, FolderOpen, Briefcase, Edit3, Github, Tv, Mail, ExternalLink, ArrowRight, Terminal } from 'lucide-react'
 
 import { Spotlight } from '@/components/ui/spotlight'
 import {
@@ -304,7 +304,13 @@ export default function Personal() {
             {PROJECTS.map((project) => (
               <div key={project.name} className="space-y-2">
                 <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                  <ProjectVideo src={project.video} />
+                  {project.video ? (
+                    <ProjectVideo src={project.video} />
+                  ) : (
+                    <div className="aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                      <Terminal size={48} className="text-zinc-300 dark:text-zinc-500" />
+                    </div>
+                  )}
                 </div>
                 <div className="px-1">
                   <a
