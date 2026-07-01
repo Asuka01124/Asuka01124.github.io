@@ -307,9 +307,14 @@ export default function Personal() {
                   {project.video ? (
                     <ProjectVideo src={project.video} />
                   ) : (
-                    <div className="aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
+                    >
                       <Terminal size={48} className="text-zinc-300 dark:text-zinc-500" />
-                    </div>
+                    </a>
                   )}
                 </div>
                 <div className="px-1">

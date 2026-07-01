@@ -92,13 +92,18 @@ export default function ProjectsPage() {
                 {project.video ? (
                   <ProjectVideo src={project.video} />
                 ) : (
-                  <div className="relative overflow-hidden aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative overflow-hidden block aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
+                  >
                     <Spotlight
                       className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
                       size={64}
                     />
                     <Terminal size={48} className="text-zinc-300 dark:text-zinc-500 relative z-10" />
-                  </div>
+                  </a>
                 )}
               </div>
               <div className="px-1">
