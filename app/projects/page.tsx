@@ -61,6 +61,51 @@ function ProjectVideo({ src }: { src: string }) {
   )
 }
 
+function ProjectImage({ src }: { src: string }) {
+  return (
+    <MorphingDialog
+      transition={{
+        type: 'spring',
+        bounce: 0,
+        duration: 0.3,
+      }}
+    >
+      <MorphingDialogTrigger>
+        <img
+          src={src}
+          alt=""
+          className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
+        />
+      </MorphingDialogTrigger>
+      <MorphingDialogContainer>
+        <MorphingDialogContent className="relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+          <img
+            src={src}
+            alt=""
+            className="max-h-[70vh] max-w-full rounded-xl object-contain"
+          />
+        </MorphingDialogContent>
+        <MorphingDialogClose className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-zinc-500"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </MorphingDialogClose>
+      </MorphingDialogContainer>
+    </MorphingDialog>
+  )
+}
+
 export default function ProjectsPage() {
   if (PROJECTS.length === 0) {
     return (
@@ -91,6 +136,8 @@ export default function ProjectsPage() {
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
                 {project.video ? (
                   <ProjectVideo src={project.video} />
+                ) : project.image ? (
+                  <ProjectImage src={project.image} />
                 ) : (
                   <a
                     href={project.link}

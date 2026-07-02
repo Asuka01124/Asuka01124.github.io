@@ -3,6 +3,7 @@ type Project = {
   description: string
   link: string
   video?: string
+  image?: string
   id: string
 }
 
@@ -43,6 +44,7 @@ export const PROJECTS: Project[] = [
     name: 'AsukaCode',
     description: '终端 AI 编码助手，基于 Bun + TypeScript + OpenTUI 构建，在命令行中提供智能代码辅助。',
     link: 'https://github.com/Asuka01124/asukacode',
+    image: '/projects/asukacode.png',
     id: 'asukacode',
   },
 ]

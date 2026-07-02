@@ -110,6 +110,52 @@ function ProjectVideo({ src }: ProjectVideoProps) {
   )
 }
 
+type ProjectImageProps = {
+  src: string
+}
+
+function ProjectImage({ src }: ProjectImageProps) {
+  return (
+    <MorphingDialog
+      transition={{
+        type: 'spring',
+        bounce: 0,
+        duration: 0.3,
+      }}
+    >
+      <MorphingDialogTrigger>
+        <img
+          src={src}
+          alt=""
+          className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
+        />
+      </MorphingDialogTrigger>
+      <MorphingDialogContainer>
+        <MorphingDialogContent className="relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+          <img
+            src={src}
+            alt=""
+            className="max-h-[70vh] max-w-full rounded-xl object-contain"
+          />
+        </MorphingDialogContent>
+        <MorphingDialogClose
+          className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
+          variants={{
+            initial: { opacity: 0 },
+            animate: {
+              opacity: 1,
+              transition: { delay: 0.3, duration: 0.1 },
+            },
+            exit: { opacity: 0, transition: { duration: 0 } },
+          }}
+        >
+          <XIcon className="h-5 w-5 text-zinc-500" />
+        </MorphingDialogClose>
+      </MorphingDialogContainer>
+    </MorphingDialog>
+  )
+}
+
 function getSocialIcon(label: string) {
   for (const [key, Icon] of Object.entries(SOCIAL_ICON_MAP)) {
     if (label.toLowerCase().includes(key.toLowerCase())) return Icon
@@ -306,6 +352,8 @@ export default function Personal() {
                 <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
                   {project.video ? (
                     <ProjectVideo src={project.video} />
+                  ) : project.image ? (
+                    <ProjectImage src={project.image} />
                   ) : (
                     <a
                       href={project.link}
