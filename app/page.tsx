@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { XIcon, FolderOpen, Briefcase, Edit3, Github, Tv, Mail, ExternalLink, ArrowRight, Terminal } from 'lucide-react'
 
 import { Spotlight } from '@/components/ui/spotlight'
+import { Magnetic } from '@/components/ui/magnetic'
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -237,12 +238,17 @@ export default function Personal() {
         </div>
 
         {/* 右侧图片卡片 */}
-        <div className="rounded-2xl overflow-hidden shadow-lg aspect-[6/5]">
-          <img
-            src="/avatar.png"
-            alt="Asuka (Forest Yang)"
-            className="object-cover w-full h-full"
-          />
+        <div className="rounded-2xl overflow-hidden shadow-lg aspect-[6/5] relative transition-shadow duration-300 hover:shadow-xl">
+          <Spotlight size={250} />
+          <Magnetic intensity={0.4} range={80}>
+            <motion.img
+              src="/avatar.png"
+              alt="Asuka (Forest Yang)"
+              className="object-cover w-full h-full"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+            />
+          </Magnetic>
         </div>
       </motion.section>
 
