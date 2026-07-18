@@ -361,25 +361,22 @@ export default function Personal() {
                   ) : project.image ? (
                     <ProjectImage src={project.image} />
                   ) : (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={`/projects/${project.id}`}
                       className="block aspect-video w-full rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                     >
                       <Terminal size={48} className="text-zinc-300 dark:text-zinc-500" />
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <div className="px-1">
-                  <a
+                  <Link
                     className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                    href={project.link}
-                    target="_blank"
+                    href={`/projects/${project.id}`}
                   >
                     {project.name}
                     <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-                  </a>
+                  </Link>
                   <p className="text-base text-zinc-600 dark:text-zinc-400">
                     {project.description}
                   </p>

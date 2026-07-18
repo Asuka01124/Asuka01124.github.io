@@ -68,6 +68,24 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </MorphingDialog>
       )
     },
+    LinkButton: ({
+      href,
+      children,
+    }: {
+      href: string
+      children: React.ReactNode
+    }) => {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="not-prose inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm text-zinc-900 no-underline ring-1 ring-zinc-200/50 transition-colors hover:bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 dark:ring-zinc-700 dark:hover:bg-zinc-700"
+        >
+          {children}
+        </a>
+      )
+    },
     code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
       const codeHTML = highlight(children as string)
       return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
