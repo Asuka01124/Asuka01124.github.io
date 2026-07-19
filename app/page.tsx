@@ -326,7 +326,7 @@ export default function Personal() {
 
               {/* 文字区 */}
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-black dark:text-white group-hover:underline truncate">
+                <h4 className="font-medium text-black dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-400 transition-colors duration-200 truncate">
                   {post.title}
                 </h4>
                 <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-2 mt-0.5">
@@ -371,11 +371,10 @@ export default function Personal() {
                 </div>
                 <div className="px-1">
                   <Link
-                    className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                    className="font-base inline-block font-[450] text-zinc-900 dark:text-zinc-50 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors duration-200"
                     href={`/projects/${project.id}`}
                   >
                     {project.name}
-                    <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                   </Link>
                   <p className="text-base text-zinc-600 dark:text-zinc-400">
                     {project.description}

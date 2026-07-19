@@ -154,11 +154,10 @@ export default function ProjectsPage() {
               </div>
               <div className="px-1">
                 <Link
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                  className="font-base inline-block font-[450] text-zinc-900 dark:text-zinc-50 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors duration-200"
                   href={`/projects/${project.id}`}
                 >
                   {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                 </Link>
                 <p className="text-base text-zinc-600 dark:text-zinc-400 mt-1">
                   {project.description}
