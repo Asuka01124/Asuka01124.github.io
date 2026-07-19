@@ -2,7 +2,7 @@ import type { MDXComponents } from 'mdx/types'
 import { ComponentPropsWithoutRef } from 'react'
 import { highlight } from 'sugar-high'
 import { PostMeta } from '@/components/post-meta'
-import { XIcon } from 'lucide-react'
+import { Github, XIcon } from 'lucide-react'
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -80,8 +80,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="not-prose inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm text-zinc-900 no-underline ring-1 ring-zinc-200/50 transition-colors hover:bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 dark:ring-zinc-700 dark:hover:bg-zinc-700"
+          className="not-prose inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm text-zinc-900 no-underline ring-1 ring-zinc-300 transition-all duration-200 hover:-translate-y-0.5 hover:ring-zinc-400 hover:shadow-md dark:bg-zinc-900 dark:text-zinc-100 dark:ring-zinc-700 dark:hover:ring-zinc-600 dark:hover:shadow-lg dark:hover:shadow-black/20"
         >
+          <Github size={16} />
           {children}
         </a>
       )
