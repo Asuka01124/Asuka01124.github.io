@@ -1,7 +1,7 @@
 export const metadata = {
   title: 'AsukaCode',
   description:
-    '终端 AI 编码助手，基于 Bun + TypeScript + OpenTUI 构建，在命令行中提供智能代码辅助。',
+    '轻量高效的终端 AI 编码助手，基于 Bun + TypeScript + OpenTUI，支持 26 个主流模型，编译为单文件二进制。',
   alternates: {
     canonical: '/projects/asukacode',
   },
@@ -17,20 +17,67 @@ export const metadata = {
 
 ## 项目简介
 
-AsukaCode 是一款终端 AI 编码助手，基于 **Bun** 运行时和 **TypeScript** 构建，使用 **OpenTUI** 框架打造终端用户界面。它能在命令行中直接提供智能代码辅助，无需离开终端即可获得 AI 驱动的编码建议。
+AsukaCode 是一个**轻量、高效的终端 AI 编码助手**，围绕 terminal-first agent loop 构建。兼容 OpenAI 兼容 API，支持 DeepSeek / Claude / GPT-5 / Qwen / GLM 等 **26 个主流模型**。
 
-## 主要功能
+它用更小的实现体量，提供类 Claude Code 的工作流体验和架构思路，因此很适合学习、实验，以及继续做自己的定制化开发。整个项目有意保持结构清晰：`core/` 放引擎，`tui/` 放界面，发布时编译为**单文件二进制**。
 
-- **智能代码补全** — 上下文感知的代码建议，提升编码效率
-- **终端内交互** — 全程在命令行中操作，无缝融入开发工作流
-- **多语言支持** — 覆盖主流编程语言的语法理解和补全
-- **轻量高效** — 基于 Bun 运行时，启动迅速、资源占用低
+### 工作流
+
+1. 接收用户请求
+2. 加载项目上下文与长期记忆
+3. 调用工具（bash / 文件操作 / 搜索 / 网络 / 任务管理）
+4. 权限检查后再执行危险操作
+5. 上下文超限时自动压缩
+6. 在同一终端会话里返回最终结果
+
+## 核心能力
+
+- **多步工具执行** — `model → tool → model` 闭环，单轮可调用多个工具链式完成任务
+- **全屏终端 UI** — 基于 OpenTUI React，支持输入历史、transcript 滚动、slash 命令、侧边栏
+- **Build / Plan 双模式** — `/plan` 进入只读规划模式，`/build` 返回完整构建模式，`Shift+Tab` 快速切换
+- **14 个内置工具** — bash 执行、文件读写、精确编辑、glob 搜索、grep 搜索、网页抓取、任务管理、技能加载、用户提问
+- **MCP 协议支持** — 通过 `/mcp` 连接、断开、管理 MCP 服务器，自动注册工具；按分类（read/write/execute/network）自动审批
+- **粘贴块管理** — 粘贴超过 5 行自动折叠为 `[pasted ~N lines]`，提交时才展开完整内容
+- **四级上下文压缩** — 50% Micro → 70% Snip → 75% Budget → 85% Auto（LLM 摘要），Token 利用率精准计算
+- **三级权限拦截** — denylist 硬拒绝 / 破坏性操作弹窗 / 越界写入弹窗，Shell 元字符检测 + 敏感文件保护
+- **长期记忆** — 自动从对话提取关键信息，超阈值时合并去重，每轮注入相关记忆
+- **技能系统** — 通过 `SKILL.md` 按需加载领域专业知识
+- **System Prompt 增量更新** — 比较快照，仅发送变化部分，节省 token 消耗
+- **多会话管理** — SQLite 持久化存储，`/resume` 加载历史会话
+- **26 个主流模型** — 开箱配置，模型选择框防止输错
 
 ## 技术栈
 
-- **运行时**: Bun
-- **语言**: TypeScript
-- **UI 框架**: OpenTUI
-- **AI 集成**: Claude API
+- **语言**: TypeScript 6.0
+- **运行时**: Bun（原生 SQLite + 二进制编译）
+- **UI 框架**: `@opentui/react`（终端 React）
+- **LLM**: OpenAI SDK（兼容 26 个模型）
+- **数据校验**: Zod
+- **发布**: `bun build --compile`（单文件二进制）
+
+## 项目结构
+
+```
+asukacode/
+├── core/             # 核心引擎
+│   ├── agent/        # 会话 + 主循环 + 事件总线
+│   ├── compact/      # 四级上下文压缩
+│   ├── config/       # 配置管理 + 安装向导
+│   ├── database/     # SQLite 消息持久化
+│   ├── mcp/          # MCP 客户端 + 服务器管理
+│   ├── memory/       # 长期记忆管理
+│   ├── paste/        # 粘贴块管理
+│   ├── permission/   # 三级权限控制
+│   ├── recovery/     # API 错误恢复
+│   ├── skills/       # 技能系统
+│   ├── systemContext/# System Prompt 增量引擎
+│   ├── tools/        # 14 个内置工具 + 工具注册表
+│   └── utils/        # token 估算 / 模型窗口
+├── scripts/          # 安装脚本 + 图标注入
+├── tui/              # 终端 UI (React / OpenTUI)
+├── docs/             # 文档
+├── bunfig.toml       # JSX 编译配置
+└── package.json
+```
 
 <Cover src="/projects/asukacode.png" alt="AsukaCode 终端界面截图" caption="AsukaCode 终端界面" />
