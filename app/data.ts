@@ -53,6 +53,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '我如何用 AI 写代码（而不被 AI 带偏）',
+    description:
+      'Harness、Loop Engineering、Agent Orchestration——每隔两周就有一个新概念宣称"改变一切"。但说实话，Agent 根本不需要这么多花里胡哨的工程，你只需要把计划写清楚。',
+    link: '/blog/how-i-code-with-ai',
+    uid: 'how-i-code-with-ai',
+    date: '2026-07-21',
+  },
+  {
     title: '多 Agent 协作，也许只是一场热闹的菜市场',
     description:
       'Agent-Graph、Swarm、树形协作——多 Agent 架构看起来很酷，但实际效果真的比单个 Agent 更好吗？一个学生的反思与吐槽。',
