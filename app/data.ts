@@ -59,6 +59,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/how-i-code-with-ai',
     uid: 'how-i-code-with-ai',
     date: '2026-07-21',
+    cover: '/blog/how-i-code-with-ai-cover.avif',
   },
   {
     title: '多 Agent 协作，也许只是一场热闹的菜市场',
