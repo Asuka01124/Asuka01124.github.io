@@ -20,10 +20,17 @@ D:/nim/
 │   ├── footer.tsx              # 页脚 (主题切换 + 版权)
 │   ├── globals.css             # Tailwind v4 入口 + sugar-high 代码高亮配色
 │   ├── robots.ts               # robots.txt 生成
-│   └── blog/
-│       ├── layout.tsx          # 博客文章统一布局 (滚动进度条 + 复制链接)
-│       └── <slug>/
-│           └── page.mdx        # 每篇博客一个 MDX 文件
+│   ├── blog/
+│   │   ├── layout.tsx          # 博客文章统一布局 (滚动进度条 + 复制链接)
+│   │   ├── page.tsx            # 博客列表页 (含封面缩略图)
+│   │   └── <slug>/
+│   │       └── page.mdx        # 每篇博客一个 MDX 文件
+│   └── projects/
+│       ├── page.tsx            # 项目列表页
+│       └── (detail)/           # 项目详情 (路由组，不在 URL 中出现)
+│           ├── layout.tsx
+│           └── asukacode/
+│               └── page.mdx
 ├── components/ui/              # UI 组件库 (全部 'use client')
 │   ├── animated-background.tsx # 悬停/点击高亮滑动背景
 │   ├── magnetic.tsx            # 鼠标磁吸效果
@@ -38,9 +45,9 @@ D:/nim/
 ├── lib/
 │   ├── constants.ts            # WEBSITE_URL
 │   └── utils.ts                # cn() 类名合并工具
-├── mdx-components.tsx          # MDX 自定义组件 (Cover + 代码高亮)
+├── mdx-components.tsx          # MDX 自定义组件 (Cover + PostMeta + 代码高亮)
 ├── public/                     # 静态资源
-│   ├── projects/               # ★ 项目视频/图片放这里
+│   ├── projects/               # ★ 项目图片放这里
 │   └── blog/                   # ★ 博客配图放这里
 ├── deploy.sh                   # 部署脚本
 └── next.config.mjs             # output: 'export' + MDX 配置
@@ -58,7 +65,8 @@ type Project = {
   name: string         // 项目名称
   description: string  // 简短描述
   link: string         // 项目链接 (外部URL)
-  video: string        // 视频路径, 如 "/projects/demo.mp4"
+  video?: string       // 视频路径, 如 "/projects/demo.mp4"
+  image?: string       // 图片路径, 如 "/projects/demo.png"
   id: string           // 唯一标识
 }
 
@@ -78,6 +86,8 @@ type BlogPost = {
   description: string  // 摘要
   link: string         // 路径, 如 "/blog/my-post"
   uid: string          // 唯一标识 (用于动画 key)
+  date: string         // 发布日期, 如 "2026-07-21"
+  cover?: string       // 封面图路径, 如 "/blog/my-cover.png" (可选)
 }
 
 // 社交链接
@@ -89,9 +99,9 @@ type SocialLink = {
 
 ### 当前数据
 
-- `PROJECTS` — 空数组 `[]` (待添加)
+- `PROJECTS` — 1 个项目: AsukaCode (终端 AI 编码助手)
 - `WORK_EXPERIENCE` — 空数组 `[]` (待添加)
-- `BLOG_POSTS` — 已有 1 篇关于 Agent 的文章
+- `BLOG_POSTS` — 5 篇文章，按日期倒序排列
 - `SOCIAL_LINKS` — Github + Bilibili
 - `EMAIL` — `ziliny175@gmail.com`
 
@@ -172,27 +182,6 @@ type SocialLink = {
 
 ## 操作指南
 
-### 为已有文章添加/更新封面图
-
-用户上传图片后，**必须同时修改 3 个位置**，缺一不可：
-
-**Step 1**: 复制图片到 `public/blog/`
-```bash
-cp "<源路径>" "D:/nim/public/blog/<slug>.png"
-```
-
-**Step 2**: 在 MDX 文件的 `<PostMeta>` 下方添加 `<Cover>` 组件
-```mdx
-<Cover src="/blog/<slug>.png" alt="<文章标题>" caption="" />
-```
-
-**Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 对应条目中添加 `cover` 字段
-```typescript
-cover: '/blog/<slug>.png',
-```
-
-> **注意**: 首页 (`app/page.tsx`) 和博客列表页 (`app/blog/page.tsx`) 都会检查 `cover` 字段来决定显示封面缩略图还是占位图标。如果不上 `cover` 字段，两个页面都不会显示封面。
-
 ### 添加博客文章
 
 **Step 1**: 创建文章目录和 MDX 文件
@@ -212,6 +201,8 @@ export const metadata = {
 
 # 文章标题
 
+<PostMeta date="2026-07-21T20:00:00" readingTime={6} />
+
 正文内容 (Markdown 格式)...
 
 <!-- 可选: 封面图 -->
@@ -220,36 +211,59 @@ export const metadata = {
 
 MDX 中可用的特殊组件 (定义在 `mdx-components.tsx`):
 - `<Cover src="..." alt="..." caption="..." />` — 封面图
+- `<PostMeta date="ISO时间" readingTime={分钟数} />` — 文章元信息
 - 代码块自动使用 `sugar-high` 语法高亮
 
-**Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 数组中添加条目
+**Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 数组**开头**添加条目 (保持日期倒序):
 ```typescript
 {
   title: '文章标题',
   description: '简短摘要',
   link: '/blog/<slug>',
   uid: '<slug>',
-  date: '2026-06-15',
+  date: '2026-07-21',
   cover: '/blog/<slug>.png',  // 有封面图就加上，没有可省略
 }
 ```
 
+### 为已有文章添加/更新封面图
+
+用户上传图片后，**必须同时修改 3 个位置**，缺一不可：
+
+**Step 1**: 复制图片到 `public/blog/`
+```bash
+cp "<源路径>" "D:/nim/public/blog/<slug>.<ext>"
+```
+支持的格式: PNG、JPG、AVIF 等。建议控制文件大小。
+
+**Step 2**: 在 MDX 文件的 `<PostMeta>` 下方添加 `<Cover>` 组件
+```mdx
+<Cover src="/blog/<slug>.<ext>" alt="<文章标题>" caption="" />
+```
+
+**Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 对应条目中添加 `cover` 字段
+```typescript
+cover: '/blog/<slug>.<ext>',
+```
+
+> **注意**: 首页 (`app/page.tsx`) 和博客列表页 (`app/blog/page.tsx`) 都会检查 `cover` 字段来决定显示封面缩略图还是占位图标。如果不上 `cover` 字段，两个页面都不会显示封面。
+
 ### 添加项目展示
 
-**Step 1**: 将项目视频/截图放入 `public/projects/`
+**Step 1**: 将项目图片/视频放入 `public/projects/`
 
-**Step 2**: 在 `app/data.ts` 的 `PROJECTS` 数组中添加:
+**Step 2**: 如需项目详情页，在 `app/projects/(detail)/<id>/` 下创建 `page.mdx`
+
+**Step 3**: 在 `app/data.ts` 的 `PROJECTS` 数组中添加:
 ```typescript
 {
   name: '项目名称',
   description: '一句话描述',
   link: 'https://github.com/...',  // 或项目网站
-  video: '/projects/my-project.mp4',  // 视频路径
+  image: '/projects/my-project.png',  // 图片路径
   id: 'my-project',
 }
 ```
-
-视频格式建议: MP4, 16:9 比例, 小文件体积
 
 ### 添加工作经历
 
@@ -295,13 +309,13 @@ MDX 中可用的特殊组件 (定义在 `mdx-components.tsx`):
 npm run dev
 
 # 构建 + 部署到 GitHub Pages
-npm run deploy
+bash deploy.sh
 ```
 
 部署脚本 `deploy.sh` 自动完成: 构建 → 克隆目标仓库 → 清空旧文件 → 复制新文件 → 提交推送。
-部署后等待 30-60 秒刷新 https://asuka01124.github.io/。
+部署后等待 1-2 分钟刷新 https://asuka01124.github.io/。
 
-**重要**: 每次修改后如果想立即看到线上效果，运行 `npm run deploy`。
+**重要**: 每次修改后如果想立即看到线上效果，运行 `bash deploy.sh`。
 
 ## 关键约束
 
@@ -311,23 +325,7 @@ npm run deploy
 4. **route handler** 如 `robots.ts` 必须加 `export const dynamic = 'force-static'`
 5. **GitHub Pages**: 下划线开头的目录 (`_next`) 需要 `.nojekyll` 文件防止被 Jekyll 忽略
 6. **MDX 文件**放在 `app/blog/` 下自动成为路由, 不需要 `generateStaticParams`
-
-## Shell 环境注意事项
-
-Bash 环境中的 `PATH` 不包含常用 Windows 工具，需要使用**完整路径**调用：
-
-| 命令 | 完整路径 |
-|---|---|
-| `git` | `/d/Git/cmd/git.exe` |
-| `bash` | `/d/Git/bin/bash.exe` |
-| `npm` / `npx` | `/c/Program Files/nodejs/npm.cmd` |
-| `node` | `/c/Program Files/nodejs/node.exe` |
-
-**常见坑：**
-- `ls`、`head`、`tail`、`grep` 等 Unix 命令在 bash 中不可用 — 用 Glob/Grep/Read 工具代替
-- `npx` 等命令不存在 — 用 `/c/Program Files/nodejs/npx.cmd`
-- 运行 `npm run deploy` 时需要确保 bash 也在 PATH 中，否则 deploy 脚本中的 `bash deploy.sh` 会失败
-- 部署时用：`/d/Git/bin/bash.exe -c "export PATH=\"\$PATH:/c/Program Files/nodejs:/d/Git/cmd\" && bash deploy.sh"`
+7. **Google Fonts**: 使用 `next/font/google` 加载 Geist + Geist Mono, 构建时需要能访问 `fonts.googleapis.com`
 
 ## 标准工作流程
 
@@ -337,10 +335,10 @@ Bash 环境中的 `PATH` 不包含常用 Windows 工具，需要使用**完整�
 2. **Review** — 将改动展示给用户确认，不要未经确认就提交
 3. **Git 提交（本地）** — 用户确认后，提交到本地仓库：
    ```bash
-   /d/Git/cmd/git.exe -C "D:/nim" add <files> && /d/Git/cmd/git.exe -C "D:/nim" commit -m "<message>"
+   git add -A && git commit -m "<message>"
    ```
 4. **部署到个人网站** — 运行部署脚本：
    ```bash
-   /d/Git/bin/bash.exe -c "export PATH=\"\$PATH:/c/Program Files/nodejs:/d/Git/cmd\" && bash deploy.sh"
+   bash deploy.sh
    ```
 5. **验证** — 部署完成后告知用户，等待 1-2 分钟后访问 https://asuka01124.github.io/ 查看效果
