@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: {
-    default: 'Auska的个人网站',
-    template: '%s | Nim',
+    default: 'Asuka 的个人网站',
+    template: '%s | Asuka',
   },
   description:
-    'Nim is a free and open-source personal website template built with Next.js 15, React 19 and Motion-Primitives.',
+    'Forest Yang (Asuka) 的个人网站 — 记录 AI Agent、软件工程、前端设计的学习、思考与灵感。',
 }
 
 const geist = Geist({
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
       >
