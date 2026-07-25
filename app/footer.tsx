@@ -73,7 +73,7 @@ export function Footer() {
     <footer className="mt-20 border-t border-zinc-100 dark:border-zinc-800 px-0 py-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <a href="https://github.com/ibelick/nim" target="_blank">
+          <a href="https://github.com/Asuka01124" target="_blank">
             <TextLoop className="text-xs text-zinc-500">
               <span>© 2024 Asuka (Forest Yang). All rights reserved.</span>
               <span>Built with Motion-Primitives.</span>
