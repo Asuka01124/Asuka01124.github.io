@@ -390,6 +390,76 @@ cover: '/blog/<slug>.<ext>',
 - **排版插件**: `@tailwindcss/typography` — 博客用 `prose prose-gray dark:prose-invert`
 - **代码高亮配色**: `globals.css` 中 `:root` 下的 `--sh-*` CSS 变量 (Tokyo Night 风格)
 
+## SEO 配置
+
+项目已配置完整的 SEO 基础设施，涉及 3 个文件：
+
+### 全局 Metadata (`app/layout.tsx`)
+
+```typescript
+export const metadata: Metadata = {
+  metadataBase: new URL('https://asuka01124.github.io/'),
+  alternates: { canonical: '/' },
+  title: {
+    default: 'Asuka 的个人网站',
+    template: '%s | Asuka',  // 子页面标题会自动拼接
+  },
+  description: 'Forest Yang (Asuka) 的个人网站 — ...',
+}
+```
+
+- `metadataBase` — 所有相对路径的基础 URL，必须指向最终部署域名
+- `title.template` — 子页面的 `%s` 会被替换为各页面自己的 title，生成 `<title>文章标题 | Asuka</title>`
+- 每篇博客文章的 MDX 中导出 `metadata.title` 和 `metadata.description` 会自动被 Next.js 合并到页面 `<head>` 中
+
+### Sitemap (`app/sitemap.ts`)
+
+```typescript
+export const dynamic = 'force-static'  // 静态导出必须加这一行
+```
+
+自动生成的 `sitemap.xml` 包含：
+| 页面 | 更新频率 | 优先级 |
+|---|---|---|
+| 首页 `/` | weekly | 1.0 |
+| 博客列表 `/blog` | weekly | 0.9 |
+| 项目 `/projects` | monthly | 0.8 |
+| 经历 `/experience` | monthly | 0.6 |
+| 每篇博客 `/blog/<slug>` | monthly | 0.7 |
+
+添加新博客文章后，`sitemap.ts` 会自动从 `app/blog/` 目录扫描所有 MDX 文件生成对应条目，无需手动修改。
+
+### Robots.txt (`app/robots.ts`)
+
+```typescript
+export const dynamic = 'force-static'  // 静态导出必须加这一行
+```
+
+生成的 `robots.txt` 内容：
+```
+User-Agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://asuka01124.github.io/sitemap.xml
+```
+
+> 注意：`/private/` 路由实际上不存在，只是预防性声明。如需真的隐藏某些页面，改为对应的实际路径。
+
+### 博客文章 SEO
+
+每篇 MDX 文章的 `metadata` 导出中：
+- `title` — 会通过 `%s | Asuka` 模板拼接
+- `description` — 用于 Google 搜索摘要和社交分享
+- `alternates.canonical` — 防止搜索引擎认为是重复内容
+
+```mdx
+export const metadata = {
+  title: '文章标题',
+  description: '文章摘要，用于 SEO 和首页展示',
+  alternates: { canonical: '/blog/my-post' },
+}
+```
+
 ## 构建与部署
 
 ```bash
