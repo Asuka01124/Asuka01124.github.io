@@ -104,6 +104,29 @@ type SocialLink = {
 - `BLOG_POSTS` — 5 篇文章，按日期倒序排列
 - `SOCIAL_LINKS` — Github + Bilibili
 - `EMAIL` — `ziliny175@gmail.com`
+- `FEATURES` — 3 个功能卡片（个人项目、工作经验、博客），每个包含 icon/color/href/linkText
+
+### 首页渲染细节
+
+`app/page.tsx` 从 `data.ts` 读取数据后有一些额外处理，了解这些能避免踩坑：
+
+**博客列表截断**: 首页使用 `BLOG_POSTS.slice(0, 4)` 只展示前 4 篇文章。如果你在 `data.ts` 中添加了第 6 篇博客，首页不会自动显示——这是故意设计的，因为博客列表页 (`app/blog/page.tsx`) 会展示全部文章。
+
+**社交图标映射**: `page.tsx` 中有一个 `SOCIAL_ICON_MAP`:
+```typescript
+const SOCIAL_ICON_MAP: Record<string, React.ElementType> = {
+  Github,           // lucide-react 的 Github 图标
+  Bilibili: Tv,     // Bilibili 使用 Tv 图标
+  Email: Mail,      // Email 使用 Mail 图标
+}
+```
+默认映射规则：如果 `label` 值与 lucide-react 图标名一致（如 `Github`）则直接匹配，否则从映射表中查找。添加新社交链接时，如果图标名不匹配，需要在 `SOCIAL_ICON_MAP` 中注册。
+
+**功能卡片图标映射**: Features 使用两套映射：
+- `ICON_MAP` — 将 `icon` 字符串（如 `"FolderOpen"`）映射到 lucide-react 组件
+- `FEATURE_COLORS` — 将 `color` 字段映射到 Tailwind 颜色类（`blue`/`green`/`purple`），每种颜色有对应的浅色/深色模式 bg 和 text
+
+**社交链接处理**: `page.tsx` 会自动为 `EMAIL` 常量追加一个 `mailto:` 链接，排在社交链接列表最后。不需要在 `SOCIAL_LINKS` 中手动添加邮箱。
 
 ## 组件 API 速查
 
