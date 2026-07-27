@@ -475,6 +475,61 @@ bash deploy.sh
 
 **重要**: 每次修改后如果想立即看到线上效果，运行 `bash deploy.sh`。
 
+## 开发工具链
+
+### ESLint
+
+配置在 `eslint.config.mjs`（ESLint 9 flat config），继承 `next/core-web-vitals` 和 `next/typescript`。
+
+项目自定义了一条规则：
+```javascript
+{
+  rules: {
+    // 静态导出项目，不需要 next/image 优化
+    '@next/next/no-img-element': 'off',
+  },
+}
+```
+
+因为项目使用 `output: 'export'` 静态导出，无法使用 Next.js 的图像优化服务，所以禁用了 `<img>` 标签检查。
+
+### Prettier
+
+配置在 `.prettierrc.json`：
+| 选项 | 值 | 说明 |
+|---|---|---|
+| `semi` | `false` | 不使用分号 |
+| `singleQuote` | `true` | 单引号 |
+| `tabWidth` | `2` | 2 空格缩进 |
+| `trailingComma` | `"all"` | 尾随逗号 |
+| `printWidth` | `80` | 行宽限制 |
+| `plugins` | `["prettier-plugin-tailwindcss"]` | Tailwind 类名自动排序 |
+
+运行 `npm run lint` 会同时运行 ESLint 检查。
+
+### 阅读时间估算 (`lib/reading-time.ts`)
+
+`calculateReadingTime(content)` — 输入 MDX 文章原始内容，输出预估阅读分钟数。
+
+计算逻辑：
+1. 去除代码块和 Markdown 符号
+2. 统计中文字符数 → ÷ 300（300 字/分钟）
+3. 统计英文单词数 → ÷ 200（200 词/分钟）
+4. 结果相加后向上取整，最少返回 1 分钟
+
+### 类名合并工具 (`lib/utils.ts`)
+
+```typescript
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+`cn()` 是项目中合并 Tailwind 类名的标准方式，能自动处理冲突（后面的覆盖前面的），所有组件都使用它。
+
 ## 关键约束
 
 1. **所有页面组件** (`page.tsx`, `header.tsx`, `footer.tsx`, `blog/layout.tsx`) 都是 `'use client'` (因为用了 Motion 动画)
