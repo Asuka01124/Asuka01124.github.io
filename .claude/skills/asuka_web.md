@@ -221,6 +221,87 @@ MDX 中可用的特殊组件 (定义在 `mdx-components.tsx`):
 - `<PostMeta date="ISO时间" readingTime={分钟数} />` — 文章元信息 (日期 + 阅读时间)
 - 代码块自动使用 `sugar-high` 语法高亮
 
+### MDX 写作参考
+
+MDX 文件中可以混合 Markdown 和 React 组件。以下是完整写法参考：
+
+#### 特殊组件详解
+
+**`<Cover>`** — 封面图（带点击放大）
+
+| 属性 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `src` | `string` | ✅ | 图片路径，如 `/blog/my-cover.jpg` |
+| `alt` | `string` | ✅ | 图片描述文字（无障碍） |
+| `caption` | `string` | ❌ | 图片下方的说明文字，空字符串可省略 |
+
+```mdx
+<Cover src="/blog/my-article.jpg" alt="文章封面" caption="图源: xxx" />
+```
+
+内部使用 `MorphingDialog` 实现点击放大，图片会自动适配深色/浅色模式。
+
+**`<PostMeta>`** — 文章发布日期与阅读时间
+
+| 属性 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `date` | `string` | ✅ | 完整 ISO 时间 `"2026-07-21T20:00:00"` |
+| `readingTime` | `number` | ✅ | 预计阅读分钟数 |
+
+```mdx
+<PostMeta date="2026-07-21T20:00:00" readingTime={6} />
+```
+
+> **`readingTime` 估算参考**：`lib/reading-time.ts` 中定义中文 300 字/分钟、英文 200 词/分钟。一篇 1800 字的文章约为 6 分钟。
+
+**`<LinkButton>`** — 外部链接按钮（用于项目详情页）
+
+| 属性 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `href` | `string` | ✅ | 外部链接 URL |
+| `children` | `ReactNode` | ✅ | 按钮显示文字 |
+
+```mdx
+<LinkButton href="https://github.com/Asuka01124/AsukaCode">查看源码</LinkButton>
+```
+
+渲染为带 GitHub 图标 + 圆角样式的按钮，支持深色模式。
+
+#### Markdown 扩展语法 (GFM)
+
+因为配置了 `remark-gfm`，MDX 支持以下 GitHub Flavored Markdown 语法：
+
+| 语法 | 说明 | 示例 |
+|---|---|---|
+| 表格 | `\|` 分隔的表格 | 如上方的 Props 表格 |
+| 删除线 | `~~text~~` | `~~删除的内容~~` |
+| 任务列表 | `- [ ]` / `- [x]` | `- [x] 已完成` |
+| 自动链接 | 直接写 URL | `https://example.com` |
+| 脚注 | `[^1]` | 见下方 |
+
+#### 代码块
+
+````mdx
+```javascript
+const hello = "world"
+console.log(hello)
+```
+````
+
+代码块自动使用 `sugar-high` 进行语法高亮，配色方案为 Tokyo Night 风格。支持的语言由 `sugar-high` 决定，常见语言（js、ts、python、rust、bash 等）均有支持。
+
+行内代码用单个反引号：`` `const x = 1` ``。
+
+### 阅读时间估算工具
+
+`lib/reading-time.ts` 提供了 `getReadingTime(text: string)` 函数，自动按语言计算阅读时间：
+
+- 中文内容：300 字/分钟
+- 英文内容：200 词/分钟
+- 混合内容：分别计算后相加
+
+
+
 **Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 数组**开头**添加条目 (保持日期倒序):
 ```typescript
 {
