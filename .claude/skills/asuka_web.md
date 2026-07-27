@@ -491,12 +491,27 @@ bash deploy.sh
 
 1. **实现** — 按需求修改代码（组件/数据/博客/项目等）
 2. **Review** — 将改动展示给用户确认，不要未经确认就提交
-3. **Git 提交（本地）** — 用户确认后，提交到本地仓库：
+3. **构建前检查** — 部署前先本地构建验证：
+
+   ```bash
+   npm run build
+   ```
+
+   确认以下检查项全部通过：
+
+   - [ ] `npm run build` 无报错，看到 `✓ Generating static pages`
+   - [ ] 封面图已放入 `public/blog/`（如果有的话）
+   - [ ] `data.ts` 中的 BLOG_POSTS 已更新（含 `cover` 字段）
+   - [ ] MDX 中 `<Cover>` 组件已添加（如果有封面图）
+   - [ ] `<PostMeta date="..." />` 使用完整 ISO 格式（含时间）
+   - [ ] `data.ts` 中日期使用 YYYY-MM-DD 格式（不含时间）
+
+4. **Git 提交（本地）** — 检查通过后，提交到本地仓库：
    ```bash
    git add -A && git commit -m "<message>"
    ```
-4. **部署到个人网站** — 运行部署脚本：
+5. **部署到个人网站** — 运行部署脚本：
    ```bash
    bash deploy.sh
    ```
-5. **验证** — 部署完成后告知用户，等待 1-2 分钟后访问 https://asuka01124.github.io/ 查看效果
+6. **验证** — 部署完成后告知用户，等待 1-2 分钟后访问 https://asuka01124.github.io/ 查看效果
