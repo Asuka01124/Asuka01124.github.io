@@ -209,9 +209,16 @@ export const metadata = {
 <Cover src="/blog/my-cover.jpg" alt="描述" caption="图片来源" />
 ```
 
+> ⚠️ **关键陷阱：两个地方的 date 格式不同！**
+>
+> - **`app/data.ts` 的 `BLOG_POSTS`** — 日期用 `"2026-07-21"` (YYYY-MM-DD 字符串)
+> - **MDX 的 `<PostMeta date="..." />`** — 必须用**完整 ISO 时间** `"2026-07-21T20:00:00"` (含时间部分)
+>
+> 如果 MDX 中只写 `"2026-07-21"` 没带时间，`new Date()` 解析可能出错导致页面渲染异常。
+
 MDX 中可用的特殊组件 (定义在 `mdx-components.tsx`):
-- `<Cover src="..." alt="..." caption="..." />` — 封面图
-- `<PostMeta date="ISO时间" readingTime={分钟数} />` — 文章元信息
+- `<Cover src="..." alt="..." caption="..." />` — 封面图，点击可放大查看
+- `<PostMeta date="ISO时间" readingTime={分钟数} />` — 文章元信息 (日期 + 阅读时间)
 - 代码块自动使用 `sugar-high` 语法高亮
 
 **Step 3**: 在 `app/data.ts` 的 `BLOG_POSTS` 数组**开头**添加条目 (保持日期倒序):
