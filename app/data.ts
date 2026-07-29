@@ -53,6 +53,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '在命令行里安家',
+    description:
+      '当全世界都在追求更漂亮的 GUI、更丝滑的动画、更"人性化"的交互时，我却把越来越多的日常搬进了那个黑色的命令行窗口。这不是怀旧，而是一种经过深思熟虑的选择。',
+    link: '/blog/living-in-the-terminal',
+    uid: 'living-in-the-terminal',
+    date: '2026-07-29',
+  },
+  {
     title: '我如何用 AI 写代码（而不被 AI 带偏）',
     description:
       'Harness、Loop Engineering、Agent Orchestration——每隔两周就有一个新概念宣称"改变一切"。但说实话，Agent 根本不需要这么多花里胡哨的工程，你只需要把计划写清楚。',
