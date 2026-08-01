@@ -67,6 +67,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/living-in-the-terminal',
     uid: 'living-in-the-terminal',
     date: '2026-07-29',
+    cover: '/blog/living-in-the-terminal.avif',
   },
   {
     title: '我如何用 AI 写代码（而不被 AI 带偏）',
