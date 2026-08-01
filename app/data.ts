@@ -53,6 +53,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '计算机的世界，就是一场巨大的封装',
+    description:
+      '从晶体管到 AI，计算机的历史就是一部封装史。AI 封装了整个人类知识库，其广度无人能敌——但它无法回答"为什么"。真正有价值的东西一定服务于人，而这是 AI 做不出的判断。',
+    link: '/blog/the-great-encapsulation',
+    uid: 'the-great-encapsulation',
+    date: '2026-08-01',
+  },
+  {
     title: '在命令行里安家',
     description:
       '当全世界都在追求更漂亮的 GUI、更丝滑的动画、更"人性化"的交互时，我却把越来越多的日常搬进了那个黑色的命令行窗口。这不是怀旧，而是一种经过深思熟虑的选择。',
