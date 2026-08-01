@@ -59,6 +59,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/the-great-encapsulation',
     uid: 'the-great-encapsulation',
     date: '2026-08-01',
+    cover: '/blog/the-great-encapsulation.webp',
   },
   {
     title: '在命令行里安家',
