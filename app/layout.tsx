@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { WEBSITE_URL } from '@/lib/constants'
 import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
@@ -15,7 +16,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://asuka01124.github.io/'),
+  metadataBase: new URL(WEBSITE_URL),
   alternates: {
     canonical: '/',
   },

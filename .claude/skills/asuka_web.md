@@ -101,7 +101,7 @@ type SocialLink = {
 
 - `PROJECTS` — 1 个项目: AsukaCode (终端 AI 编码助手)
 - `WORK_EXPERIENCE` — 空数组 `[]` (待添加)
-- `BLOG_POSTS` — 5 篇文章，按日期倒序排列
+- `BLOG_POSTS` — 7 篇文章，按日期倒序排列
 - `SOCIAL_LINKS` — Github + Bilibili
 - `EMAIL` — `ziliny175@gmail.com`
 - `FEATURES` — 3 个功能卡片（个人项目、工作经验、博客），每个包含 icon/color/href/linkText
@@ -126,7 +126,7 @@ const SOCIAL_ICON_MAP: Record<string, React.ElementType> = {
 - `ICON_MAP` — 将 `icon` 字符串（如 `"FolderOpen"`）映射到 lucide-react 组件
 - `FEATURE_COLORS` — 将 `color` 字段映射到 Tailwind 颜色类（`blue`/`green`/`purple`），每种颜色有对应的浅色/深色模式 bg 和 text
 
-**社交链接处理**: `page.tsx` 会自动为 `EMAIL` 常量追加一个 `mailto:` 链接，排在社交链接列表最后。不需要在 `SOCIAL_LINKS` 中手动添加邮箱。
+**社交链接处理**: `EMAIL` 常量用于首页 CTA（"联系我"按钮），自动生成 `mailto:` 链接。`SOCIAL_LINKS` 中不需要手动添加邮箱。
 
 ## 组件 API 速查
 
@@ -315,13 +315,9 @@ console.log(hello)
 
 行内代码用单个反引号：`` `const x = 1` ``。
 
-### 阅读时间估算工具
+### 阅读时间估算
 
-`lib/reading-time.ts` 提供了 `getReadingTime(text: string)` 函数，自动按语言计算阅读时间：
-
-- 中文内容：300 字/分钟
-- 英文内容：200 词/分钟
-- 混合内容：分别计算后相加
+`readingTime` 在 MDX 的 `<PostMeta>` 中直接硬编码。估算参考：中文 300 字/分钟、英文 200 词/分钟。一篇 1800 字的文章约为 6 分钟。
 
 
 
@@ -401,7 +397,7 @@ cover: '/blog/<slug>.<ext>',
 ### 修改页脚链接
 
 编辑 `app/footer.tsx`:
-- 页脚左侧的 GitHub 链接 (`href="https://github.com/ibelick/nim"`)
+- 页脚左侧的 GitHub 链接 (`href="https://github.com/Asuka01124"`)
 - 循环文字 (`TextLoop` 内的两个 `<span>`)
 
 ## 样式约定
