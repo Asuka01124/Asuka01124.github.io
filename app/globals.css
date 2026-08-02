@@ -61,6 +61,17 @@
 }
 
 :root {
+  --sh-class: #5a6eb4;
+  --sh-sign: #2e8b9e;
+  --sh-string: #4a8a3f;
+  --sh-keyword: #8b4fc4;
+  --sh-comment: #8b949e;
+  --sh-jsxliterals: #5a6eb4;
+  --sh-property: #1a8a6a;
+  --sh-entity: #b8752e;
+}
+
+.dark {
   --sh-class: #7aa2f7;
   --sh-sign: #89ddff;
   --sh-string: #9ece6a;

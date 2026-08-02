@@ -75,7 +75,7 @@ export function Footer() {
         <div className="flex items-center gap-4">
           <a href="https://github.com/Asuka01124" target="_blank">
             <TextLoop className="text-xs text-zinc-500">
-              <span>© 2024 Asuka (Forest Yang). All rights reserved.</span>
+              <span>© 2024-2026 Asuka (Forest Yang). All rights reserved.</span>
               <span>Built with Motion-Primitives.</span>
             </TextLoop>
           </a>

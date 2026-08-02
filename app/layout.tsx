@@ -8,7 +8,10 @@ import { ThemeProvider } from 'next-themes'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
 }
 
 export const metadata: Metadata = {
@@ -22,6 +25,29 @@ export const metadata: Metadata = {
   },
   description:
     'Forest Yang (Asuka) 的个人网站 — 记录 AI Agent、软件工程、前端设计的学习、思考与灵感。',
+  openGraph: {
+    type: 'website',
+    locale: 'zh_CN',
+    siteName: 'Asuka 的个人网站',
+    title: 'Asuka 的个人网站',
+    description:
+      'Forest Yang (Asuka) 的个人网站 — 记录 AI Agent、软件工程、前端设计的学习、思考与灵感。',
+    images: [
+      {
+        url: '/avatar.png',
+        width: 400,
+        height: 400,
+        alt: 'Asuka (Forest Yang)',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Asuka 的个人网站',
+    description:
+      'Forest Yang (Asuka) 的个人网站 — 记录 AI Agent、软件工程、前端设计的学习、思考与灵感。',
+    images: ['/avatar.png'],
+  },
 }
 
 const geist = Geist({
