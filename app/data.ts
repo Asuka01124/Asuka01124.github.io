@@ -109,7 +109,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     title: '摇摇欲坠的热气球：从 Agent 开发看软件工程的复杂性',
     description:
-      '学习 Agent、Tools、Context Engineering，读 opencode 源码后，我开始理解软件工程真正的难题不在本地运行，而在于服务成千上万个不同环境的用户。',
+      '学习 Agent、Tools、Skills、Context Engineering 的过程中，阅读 opencode 源码后，我开始理解软件工程真正的难题不在本地运行，而在于服务成千上万个不同环境的用户。',
     link: '/blog/the-shaky-hot-air-balloon-of-software',
     uid: 'the-shaky-hot-air-balloon-of-software',
     date: '2026-06-14',

@@ -34,7 +34,7 @@ export function TextLoop({
   const items = Children.toArray(children)
 
   useEffect(() => {
-    if (!trigger) return
+    if (!trigger || items.length === 0) return
 
     const intervalMs = interval * 1000
     const timer = setInterval(() => {
@@ -46,6 +46,8 @@ export function TextLoop({
     }, intervalMs)
     return () => clearInterval(timer)
   }, [items.length, interval, onIndexChange, trigger])
+
+  if (items.length === 0) return null
 
   const motionVariants: Variants = {
     initial: { y: 20, opacity: 0 },
