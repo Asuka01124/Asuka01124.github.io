@@ -37,7 +37,6 @@ const FEATURE_COLORS: Record<string, { bg: string; text: string }> = {
 const SOCIAL_ICON_MAP: Record<string, React.ElementType> = {
   Github,
   Bilibili: Tv,
-  Email: Mail,
 }
 
 // --- 动画常量 ---
