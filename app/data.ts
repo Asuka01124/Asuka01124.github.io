@@ -51,6 +51,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '调试：一场与自己的对话',
+    description:
+      'debug 不只是在找代码的错——更多时候，你是在找自己思维里的漏洞。每一次"这不可能"到最后都变成了"原来如此"。',
+    link: '/blog/debugging-conversation-with-yourself',
+    uid: 'debugging-conversation-with-yourself',
+    date: '2026-08-04',
+  },
+  {
     title: '计算机的世界，就是一场巨大的封装',
     description:
       '从晶体管到 AI，计算机的历史就是一部封装史。AI 封装了整个人类知识库，其广度无人能敌——但它无法回答"为什么"。真正有价值的东西一定服务于人，而这是 AI 做不出的判断。',
