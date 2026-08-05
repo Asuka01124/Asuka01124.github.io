@@ -57,6 +57,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/debugging-conversation-with-yourself',
     uid: 'debugging-conversation-with-yourself',
     date: '2026-08-04',
+    cover: '/blog/debugging-conversation-with-yourself.avif',
   },
   {
     title: '计算机的世界，就是一场巨大的封装',
