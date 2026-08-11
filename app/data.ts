@@ -50,15 +50,7 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
-  {
-    title: '调试：一场与自己的对话',
-    description:
-      'debug 不只是在找代码的错——更多时候，你是在找自己思维里的漏洞。每一次"这不可能"到最后都变成了"原来如此"。',
-    link: '/blog/debugging-conversation-with-yourself',
-    uid: 'debugging-conversation-with-yourself',
-    date: '2026-08-04',
-    cover: '/blog/debugging-conversation-with-yourself.avif',
-  },
+
   {
     title: '计算机的世界，就是一场巨大的封装',
     description:
