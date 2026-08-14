@@ -1,0 +1,246 @@
+export const metadata = {
+  title: 'Rust 学习笔记：从所有权到生命周期',
+  description: '记录学习 Rust 过程中的心得体会，包括所有权系统、借用检查器、生命周期等核心概念的理解与实践。',
+  alternates: {
+    canonical: '/blog/rust-learning-notes',
+  },
+}
+
+# Rust 学习笔记：从所有权到生命周期
+
+<PostMeta date="2026-08-14T20:00:00" readingTime={8} />
+
+## 为什么选择 Rust？
+
+在学习了多种编程语言后，我决定深入学习 Rust。原因很简单：Rust 在保证内存安全的同时，不依赖垃圾回收器，这让我对系统编程有了全新的认识。
+
+```rust
+fn main() {
+    println!("Hello, Rust!");
+}
+```
+
+## 所有权系统：Rust 的核心
+
+Rust 的所有权系统是其最独特的特性。每个值都有一个所有者，当所有者离开作用域时，值会被自动释放。
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1; // s1 的所有权移动到 s2
+    
+    // println!("{}", s1); // 编译错误！s1 已经无效
+    println!("{}", s2); // 正常工作
+}
+```
+
+### 借用与引用
+
+为了避免所有权转移，我们可以使用借用（引用）：
+
+```rust
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn main() {
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1); // 借用 s1
+    
+    println!("{} 的长度是 {}", s1, len); // s1 仍然有效
+}
+```
+
+### 可变引用
+
+如果需要修改借用的值，可以使用可变引用：
+
+```rust
+fn push_world(s: &mut String) {
+    s.push_str(", world!");
+}
+
+fn main() {
+    let mut s = String::from("hello");
+    push_world(&mut s);
+    println!("{}", s); // 输出 "hello, world!"
+}
+```
+
+## 生命周期：确保引用有效
+
+生命周期是 Rust 中另一个重要概念，它确保引用在其指向的数据有效期间内使用。
+
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+fn main() {
+    let string1 = String::from("long string");
+    let result;
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+        println!("最长的字符串是 {}", result);
+    }
+    // 注意：如果在这里使用 result，会编译错误
+    // 因为 string2 已经离开作用域
+}
+```
+
+## 错误处理：Result 和 Option
+
+Rust 没有异常，而是使用 `Result` 和 `Option` 类型来处理可能失败的操作：
+
+```rust
+use std::fs::File;
+use std::io::{self, Read};
+
+fn read_file_contents(path: &str) -> Result<String, io::Error> {
+    let mut file = File::open(path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    Ok(contents)
+}
+
+fn main() {
+    match read_file_contents("hello.txt") {
+        Ok(contents) => println!("文件内容: {}", contents),
+        Err(e) => println!("读取文件失败: {}", e),
+    }
+}
+```
+
+## 模式匹配：强大的控制流
+
+Rust 的模式匹配非常强大，可以用于解构复杂数据类型：
+
+```rust
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+    // ... 其他州
+}
+
+fn value_in_cents(coin: Coin) -> u32 {
+    match coin {
+        Coin::Penny => {
+            println!("Lucky penny!");
+            1
+        }
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        }
+    }
+}
+```
+
+## 并发编程：无畏并发
+
+Rust 的类型系统和所有权规则使得并发编程更加安全：
+
+```rust
+use std::thread;
+
+fn main() {
+    let handle = thread::spawn(|| {
+        for i in 1..10 {
+            println!("hi number {} from the spawned thread!", i);
+            thread::sleep_ms(1);
+        }
+    });
+
+    for i in 1..5 {
+        println!("hi number {} from the main thread!", i);
+        thread::sleep_ms(1);
+    }
+
+    handle.join().unwrap();
+}
+```
+
+## 学习心得
+
+1. **编译器是朋友**：Rust 编译器的错误信息非常详细，虽然一开始可能觉得严格，但它帮助你在编译时发现很多潜在问题。
+
+2. **所有权系统需要时间适应**：刚开始可能会觉得所有权和借用检查很繁琐，但一旦理解，就会发现它如何防止内存安全问题。
+
+3. **模式匹配很强大**：Rust 的模式匹配不仅用于控制流，还能用于解构和验证数据。
+
+4. **社区友好**：Rust 社区非常友好，官方文档和《The Rust Programming Language》是极好的学习资源。
+
+## 下一步计划
+
+- 深入学习异步编程（async/await）
+- 探索 Rust 的宏系统
+- 尝试用 Rust 写一个小项目
+- 学习 Rust 的 Web 开发（如 Actix、Rocket）
+
+```rust
+// 一个简单的 Rust 小项目：命令行计算器
+use std::io;
+
+fn main() {
+    println!("简单计算器");
+    println!("请输入第一个数字:");
+    
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("读取输入失败");
+    let first: f64 = input.trim().parse().expect("请输入有效的数字");
+    
+    println!("请输入运算符 (+, -, *, /):");
+    input.clear();
+    io::stdin().read_line(&mut input).expect("读取输入失败");
+    let operator = input.trim();
+    
+    println!("请输入第二个数字:");
+    input.clear();
+    io::stdin().read_line(&mut input).expect("读取输入失败");
+    let second: f64 = input.trim().parse().expect("请输入有效的数字");
+    
+    let result = match operator {
+        "+" => first + second,
+        "-" => first - second,
+        "*" => first * second,
+        "/" => {
+            if second == 0.0 {
+                println!("错误：除数不能为零");
+                return;
+            }
+            first / second
+        }
+        _ => {
+            println!("错误：无效的运算符");
+            return;
+        }
+    };
+    
+    println!("结果: {} {} {} = {}", first, operator, second, result);
+}
+```
+
+## 总结
+
+Rust 是一门值得深入学习的语言。虽然学习曲线较陡，但它提供的内存安全、零成本抽象和并发安全特性，使得它在系统编程、WebAssembly、嵌入式开发等领域都有广泛应用。
+
+通过这段时间的学习，我不仅掌握了 Rust 的核心概念，更重要的是理解了如何编写更安全、更高效的代码。期待在未来的项目中应用 Rust，探索更多可能性。
+
+---
+
+*这是我的 Rust 学习笔记，记录了从入门到实践的心得体会。如果你也在学习 Rust，欢迎交流讨论！*

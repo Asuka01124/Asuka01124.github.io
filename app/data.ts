@@ -50,7 +50,14 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
-
+  {
+    title: 'Rust 学习笔记：从所有权到生命周期',
+    description:
+      '记录学习 Rust 过程中的心得体会，包括所有权系统、借用检查器、生命周期等核心概念的理解与实践。',
+    link: '/blog/rust-learning-notes',
+    uid: 'rust-learning-notes',
+    date: '2026-08-14',
+  },
   {
     title: '计算机的世界，就是一场巨大的封装',
     description:
