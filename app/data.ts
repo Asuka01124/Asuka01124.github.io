@@ -57,6 +57,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/rust-learning-notes',
     uid: 'rust-learning-notes',
     date: '2026-08-14',
+    cover: '/blog/rust-learning-notes.avif',
   },
   {
     title: '计算机的世界，就是一场巨大的封装',
