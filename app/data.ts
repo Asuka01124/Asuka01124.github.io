@@ -45,6 +45,11 @@ export const PROJECTS: Project[] = [
     image: '/projects/asukacode.png',
     id: 'asukacode',
   },
+  {
+    name: '项目模板',
+    description: '这是一个占位项目模板，用于展示项目卡片的样式。正式项目完成后可替换此条目。',
+    id: 'template-project',
+  },
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = []
