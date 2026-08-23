@@ -56,6 +56,15 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: 'AI 编码助手的难点，从来不只是调用模型',
+    description:
+      '从零开发 AsukaCode 之后，我发现 AI 编码助手真正困难的部分不在 API，而在上下文、权限、状态与失败处理。模型决定上限，工程决定它能否被真正使用。',
+    link: '/blog/the-hard-part-of-ai-coding-assistants',
+    uid: 'the-hard-part-of-ai-coding-assistants',
+    date: '2026-08-23',
+    cover: '/blog/the-hard-part-of-ai-coding-assistants.png',
+  },
+  {
     title: 'Rust 学习笔记：从所有权到生命周期',
     description:
       '记录学习 Rust 过程中的心得体会，包括所有权系统、借用检查器、生命周期等核心概念的理解与实践。',
