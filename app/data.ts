@@ -56,6 +56,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = []
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: '当 Agent 开始执行命令，终端就不再只是终端',
+    description:
+      '做 AsukaCode 的过程中，我逐渐意识到终端 UI 不是 Agent 外面的包装，而是上下文、权限、状态和人的判断汇合的地方。',
+    link: '/blog/the-terminal-is-part-of-the-agent',
+    uid: 'the-terminal-is-part-of-the-agent',
+    date: '2026-09-08',
+  },
+  {
     title: '我让 AI 改了一个函数，然后开始追踪它留下的线索',
     description:
       '一次看似普通的 AI 编码任务，让我看见上下文、权限、状态和失败恢复如何决定工具能不能真正被使用。模型负责聪明，工程负责让聪明不变成惊喜。',
